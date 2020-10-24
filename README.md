@@ -1,2 +1,2 @@
 # acm-snippets
-Some code snippets for acm-icpc contests
+Some code templates and snippets for acm-icpc contests
