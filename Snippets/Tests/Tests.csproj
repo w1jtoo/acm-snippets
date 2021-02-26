@@ -2,8 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>Snippets</RootNamespace>
+        <LangVersion>latestmajor</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+    </ItemGroup>
 
 </Project>
