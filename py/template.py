@@ -12,12 +12,61 @@ usefull snippets:
 import sys
 from bisect import bisect_left
 
+
 # recursion increase
 # sys.setrecursionlimit(10000)
 
 # number with big precision
 # from decimal
 # getcontext().prec = 10_000
+
+
+# input parser
+# n, d, li, ld, ls, s - int, float, list of ints, list of floats, list of string, string
+# lists are lines with ' '(space) delimiters
+def get_from_input(format: str, wrap_lists=True):
+    result = []
+    selected_types = format.split()
+    for type in selected_types:
+        if type == 'n':
+            result.append(int(input()))
+        elif type == 'd':
+            result.append(float(input()))
+        elif type == 's':
+            result.append(input())
+        elif type == 'li':
+            mapped = map(int, input().split())
+            result.append(list(mapped) if wrap_lists else mapped)
+        elif type == 'ld':
+            mapped = map(float, input().split())
+            result.append(list(mapped) if wrap_lists else mapped)
+        elif type == 'ls':
+            result.append(list(input().split()))
+
+    if len(result) == 1:
+        return result[0]
+    return result
+
+
+# splits aaasfffsga into (aaa, s, fff, s, g, a) blocks with signature (startPos, length, type)
+def split_into_blocks(s):
+    blocks = []
+
+    i = 0
+    curr_type = s[0]
+    curr_len = 0
+    while i < len(s):
+        if s[i] == curr_type:
+            curr_len += 1
+            i += 1
+        else:
+            blocks.append((i - curr_len, curr_len, curr_type))
+            curr_type = s[i]
+            curr_len = 0
+
+    blocks.append((i - curr_len, curr_len, curr_type))
+
+    return blocks
 
 
 # longest common prefix
@@ -49,7 +98,7 @@ def get_suffix_array(word):
     suffix_array = [("", len(word))]
 
     for position in range(len(word)):
-        sliced = word[len(word) - position - 1 :]
+        sliced = word[len(word) - position - 1:]
         suffix_array.append((sliced, len(word) - position - 1))
 
     suffix_array.sort(key=lambda x: x[0])
@@ -69,7 +118,8 @@ def bin_search(collection, element):
 
 
 def main():
-    pass
+    s = get_from_input("s")
+    print(split_into_blocks(s))
 
 
 if __name__ == "__main__":
