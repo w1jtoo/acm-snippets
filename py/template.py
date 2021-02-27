@@ -28,20 +28,21 @@ def get_from_input(format: str, wrap_lists=True):
     result = []
     selected_types = format.split()
     for type in selected_types:
+        input = sys.stdin.readline().strip()
         if type == 'n':
-            result.append(int(input()))
+            result.append(int(input))
         elif type == 'd':
-            result.append(float(input()))
+            result.append(float(input))
         elif type == 's':
-            result.append(input())
+            result.append(input)
         elif type == 'li':
-            mapped = map(int, input().split())
+            mapped = map(int, input.split())
             result.append(list(mapped) if wrap_lists else mapped)
         elif type == 'ld':
-            mapped = map(float, input().split())
+            mapped = map(float, input.split())
             result.append(list(mapped) if wrap_lists else mapped)
         elif type == 'ls':
-            result.append(list(input().split()))
+            result.append(list(input.split()))
 
     if len(result) == 1:
         return result[0]
@@ -118,8 +119,7 @@ def bin_search(collection, element):
 
 
 def main():
-    s = get_from_input("s")
-    print(split_into_blocks(s))
+    pass
 
 
 if __name__ == "__main__":
