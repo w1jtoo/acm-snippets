@@ -35,10 +35,9 @@ namespace Snippets
         public static bool IsPrime(this int number)
         {
             const int doubleMaxDelta = 2 * 100;
-            var delta = Math.Min(number, doubleMaxDelta);
             if (number <= 2) return true;
             if (number % 2 == 0) return false;
-            var top = ((float) number).Sqrt2() + delta;
+            var top = Math.Min(((float) number).Sqrt2() + doubleMaxDelta, number - 1);
             for (var i = 3; i <= top; i += 2)
                 if (number % i == 0)
                     return false;

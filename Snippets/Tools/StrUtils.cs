@@ -1,7 +1,17 @@
+using System.Collections.Generic;
+
 namespace Snippets
 {
-    public class StrUtils
+    public static class StrUtils
     {
-        
+        public static IEnumerable<int> GetReversedNumbers(this int number)
+        {
+            var currentNumber = number;
+            while (currentNumber > 0)
+            {
+                yield return currentNumber % 10;
+                currentNumber /= 10;
+            }
+        }
     }
 }
