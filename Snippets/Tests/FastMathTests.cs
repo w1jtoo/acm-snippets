@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using Snippets;
+using Snippets.Math;
 
 namespace Tests
 {
@@ -34,6 +36,13 @@ namespace Tests
         {
             for (var i = 1; i > 0; i += int.MaxValue / 1_000_000)
                 i.IntSqrt().Should().BeCloseTo((int)((float) i).Sqrt2(), 100);
+        }
+
+        [Test]
+        [Timeout(5_000)]
+        public void Factorization_FactorsShouldProduceNumber()
+        {
+            for (var i = 0L; i < 100_000; i++) i.GetPrimeFactors().Aggregate((a, b) => a * b).Should().Be(i);
         }
     }
 }

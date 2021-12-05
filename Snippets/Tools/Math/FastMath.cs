@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Snippets
+namespace Snippets.Math
 {
     public static class FastMath
     {
@@ -30,6 +30,23 @@ namespace Snippets
 
             return result;
         }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static long? GetFirstDenominator(this long number)
+        {
+            // if (number < (ulong)isPrime.Length && isPrime[number])
+            //     return null;
+
+            const int doubleMaxDelta = 2 * 1000;
+            if (number <= 3 || number == 5) return null;
+            if (number % 2 == 0) return 2;
+            var top = System.Math.Min(((float)number).Sqrt2() + doubleMaxDelta, System.Math.Min(number - 1, 10_000_000));
+            for (long i = 3; i < top; i += 2)
+                if (number % i == 0)
+                    return i;
+
+            return null;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsPrime(this int number)
@@ -37,7 +54,7 @@ namespace Snippets
             const int doubleMaxDelta = 2 * 100;
             if (number <= 2) return true;
             if (number % 2 == 0) return false;
-            var top = Math.Min(((float)number).Sqrt2() + doubleMaxDelta, number - 1);
+            var top = System.Math.Min(((float)number).Sqrt2() + doubleMaxDelta, number - 1);
             for (var i = 3; i <= top; i += 2)
                 if (number % i == 0)
                     return false;
